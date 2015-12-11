@@ -1,4 +1,4 @@
-package in.eapen.apps.tweettweetdroid;
+package in.eapen.apps.tweettweetdroid.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.oauth.OAuthLoginActionBarActivity;
+
+import in.eapen.apps.tweettweetdroid.R;
+import in.eapen.apps.tweettweetdroid.net.TwitterClient;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 

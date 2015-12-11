@@ -12,9 +12,9 @@ The following **required** functionality is completed:
 
 
 * [x] User can sign in to Twitter using OAuth login
-* [ ] User can view the tweets from their home timeline
-* [ ] User should be displayed the username, name, and body for each tweet
-* [ ] User should be displayed the relative timestamp for each tweet "8m", "7h"
+* [x] User can view the tweets from their home timeline
+* [x] Should display the username, name, and body for each tweet
+* [x] Should be displayed the relative timestamp for each tweet "8m", "7h"
 * [ ] User can view more tweets as they scroll with infinite pagination
 * [ ] User can compose a new tweet
 * [ ] User can click a “Compose” icon in the Action Bar on the top right
@@ -34,20 +34,9 @@ The following **optional** features are implemented:
 * [ ] Bonus: User can see embedded image media within the tweet detail view
 * [ ] Bonus: Compose activity is replaced with a modal overlay
 
-* [ ] Also, display relative timestamp, like count, user profile image
-* [ ]  Display each user profile image using a RoundedImageView
-* [ ]  Improve the user interface through styling and coloring
-* [ ]  Display a nice default placeholder graphic for each image during loading
-* [ ] Add pull-to-refresh for popular stream with SwipeRefreshLayout
-* [ ]  Show latest comment for each photo (bonus: show last 2 comments)
-* [ ]  Allow user to view all comments for an image within a separate activity or dialog fragment
-* [ ]  Allow video posts to be played in full-screen using the VideoView
-
 The following **additional** features are implemented:
 
-* [ ] Use a custom font
-* [ ] Rounded border outline on profile picture
-* [ ] Utilizing ViewHolder pattern for performance optimization
+* [x] Utilizing ViewHolder pattern for performance optimization
 
 ## Video Walkthrough 
 
