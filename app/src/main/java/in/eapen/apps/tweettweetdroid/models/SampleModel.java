@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.models;
+package in.eapen.apps.tweettweetdroid.models;
 
 import java.util.List;
 
