@@ -1,9 +1,7 @@
 package in.eapen.apps.tweettweetdroid;
 
 import android.content.Context;
-import android.content.res.Resources;
 
-import com.codepath.apps.tweettweetdroid.R;
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;

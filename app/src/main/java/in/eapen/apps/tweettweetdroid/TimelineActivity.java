@@ -7,9 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import com.codepath.apps.tweettweetdroid.R;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -44,8 +42,8 @@ public class TimelineActivity extends AppCompatActivity {
     private void populateTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-
+            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                Log.d("XXX", json.toString());
             }
 
             @Override

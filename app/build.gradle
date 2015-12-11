@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.0"
 
     defaultConfig {
-        applicationId "com.codepath.apps.restclienttemplate"
+        applicationId "in.eapen.apps.tweettweetdroid"
         minSdkVersion 16
         targetSdkVersion 21
     }
