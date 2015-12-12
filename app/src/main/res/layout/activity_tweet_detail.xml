@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.TweetDetailActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivTDProfilePicture"
+            android:minHeight="40dp"
+            android:minWidth="40dp"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Name"
+            android:id="@+id/tvTDName"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/ivTDProfilePicture"
+            android:layout_toEndOf="@+id/ivTDProfilePicture"
+            android:padding="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="username"
+            android:id="@+id/tvTDScreenName"
+            android:layout_below="@+id/tvTDName"
+            android:layout_toRightOf="@+id/ivTDProfilePicture"
+            android:layout_toEndOf="@+id/ivTDProfilePicture"
+            android:padding="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Tweet content"
+            android:id="@+id/tvTDTweetContent"
+            android:layout_below="@+id/tvTDScreenName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:maxLines="5"
+            android:minLines="1" />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -92,13 +92,16 @@ package in.eapen.apps.tweettweetdroid.models;
 
  */
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Tweet {
+public class Tweet implements Parcelable {
   public String getText() {
     return text;
   }
@@ -147,4 +150,37 @@ public class Tweet {
         return tweets;
 
     }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeParcelable(this.user, 0);
+    dest.writeString(this.text);
+    dest.writeLong(this.uid);
+    dest.writeString(this.timestampString);
+  }
+
+  public Tweet() {
+  }
+
+  protected Tweet(Parcel in) {
+    this.user = in.readParcelable(User.class.getClassLoader());
+    this.text = in.readString();
+    this.uid = in.readLong();
+    this.timestampString = in.readString();
+  }
+
+  public static final Parcelable.Creator<Tweet> CREATOR = new Parcelable.Creator<Tweet>() {
+    public Tweet createFromParcel(Parcel source) {
+      return new Tweet(source);
+    }
+
+    public Tweet[] newArray(int size) {
+      return new Tweet[size];
+    }
+  };
 }

@@ -1,5 +1,9 @@
 package in.eapen.apps.tweettweetdroid.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -61,7 +65,7 @@ import org.json.JSONObject;
       "screen_name": "oauth_dancer"
     }
  */
-public class User {
+public class User implements Parcelable {
     public String getName() {
         return name;
     }
@@ -89,6 +93,40 @@ public class User {
         user.screenName = jsonObject.getString("screen_name");
         user.uid = jsonObject.getLong("id");
         user.profileImageUrl = jsonObject.getString("profile_image_url_https");
+        Log.d("XXX", "Added user " + user.name);
         return user;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.screenName);
+        dest.writeLong(this.uid);
+        dest.writeString(this.profileImageUrl);
+    }
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        this.name = in.readString();
+        this.screenName = in.readString();
+        this.uid = in.readLong();
+        this.profileImageUrl = in.readString();
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

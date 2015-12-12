@@ -1,4 +1,4 @@
-package in.eapen.apps.tweettweetdroid;
+package in.eapen.apps.tweettweetdroid.utils;
 
 import android.content.Context;
 
