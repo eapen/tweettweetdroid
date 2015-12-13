@@ -4,7 +4,7 @@
 
 Submitted by: **Eapen**
 
-Time spent: **12** hours spent in total
+Time spent: **16** hours spent in total
 
 ## User Stories
 
@@ -15,7 +15,7 @@ The following **required** functionality is completed:
 * [x] User can view the tweets from their home timeline
 * [x] Should display the username, name, and body for each tweet
 * [x] Should be displayed the relative timestamp for each tweet "8m", "7h"
-* [ ] User can view more tweets as they scroll with infinite pagination
+* [x] User can view more tweets as they scroll with infinite pagination
 * [x] User can compose a new tweet
 * [x] User can click a “Compose” icon in the Action Bar on the top right
 * [x] User can then enter a new tweet and post this to twitter
@@ -37,6 +37,8 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 * [x] Utilizing ViewHolder pattern for performance optimization
+* [x] Displaying HTML characters properly in the TextView
+* [x] Added Tweet Detail view
 
 ## Video Walkthrough 
 
@@ -48,6 +50,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
+I am using Twitter's deprecated "page" parameter for paging to get the minimum requirements and need to implement the paging using the since_id.
 
 
 ## License

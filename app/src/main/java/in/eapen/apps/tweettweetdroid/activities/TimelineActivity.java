@@ -21,19 +21,16 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import in.eapen.apps.tweettweetdroid.R;
-import in.eapen.apps.tweettweetdroid.utils.TwitterApplication;
 import in.eapen.apps.tweettweetdroid.adapters.TweetsArrayAdapter;
 import in.eapen.apps.tweettweetdroid.models.Tweet;
-import in.eapen.apps.tweettweetdroid.models.User;
 import in.eapen.apps.tweettweetdroid.net.TwitterClient;
-
-import in.eapen.apps.tweettweetdroid.activities.ComposeTweetActivity;
+import in.eapen.apps.tweettweetdroid.utils.EndlessScrollListener;
+import in.eapen.apps.tweettweetdroid.utils.TwitterApplication;
 
 
 public class TimelineActivity extends AppCompatActivity {
@@ -43,6 +40,10 @@ public class TimelineActivity extends AppCompatActivity {
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
+
+    private int itemsCount = 0;
+    private int nextPage = 1;
+    private boolean loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +63,23 @@ public class TimelineActivity extends AppCompatActivity {
 
         lvTweets.setAdapter(aTweets);
 
+        loading = false;
         if (isNetworkAvailable()) {
             populateTimeline();
         } else {
-            Toast.makeText(this, "Network unavailable", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Network unavailable", Toast.LENGTH_LONG).show();
         }
 
+        lvTweets.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public boolean onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to your AdapterView
+                populateTimeline();
+                // or customLoadMoreDataFromApi(totalItemsCount);
+                return loading;
+            }
+        });
 
         lvTweets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,7 +87,7 @@ public class TimelineActivity extends AppCompatActivity {
                 Tweet t = aTweets.getItem(position);
                 Intent i = new Intent(TimelineActivity.this, TweetDetailActivity.class);
                 i.putExtra("tweet", t);
-                startActivityForResult(i, 100);
+                startActivityForResult(i, TweetDetailActivity.TWEET_DETAIL_REQUEST);
             }
         });
     }
@@ -111,36 +123,39 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void populateTimeline() {
-        client.getHomeTimeline(COUNT, new JsonHttpResponseHandler() {
+        loading = true;
+        client.getHomeTimeline(COUNT, nextPage, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 Log.d("XXX", json.toString());
                 aTweets.addAll(Tweet.fromJSONArray(json));
+                nextPage++;
+                itemsCount += json.length();
+                loading = false;
             }
 
             // handle JSON failure
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    if (errorResponse.getJSONArray("errors").getJSONObject(0).getInt("code") == 88) {
-                        Toast.makeText(getApplicationContext(), "Exceeded limit. Please wait 15 minutes.", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (statusCode == 429) {
+                    Toast.makeText(getApplicationContext(), "Exceeded limit. Please wait 15 minutes.", Toast.LENGTH_SHORT).show();
                 }
                 Log.e("ERROR", errorResponse.toString());
+                loading = false;
             }
 
             // handle non-JSON error responses
             @Override
             public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
                 Log.e("ERROR", errorResponse.toString());
+                loading = false;
             }
 
             @Override
             public void onUserException(Throwable error) {
                 Toast.makeText(getApplicationContext(), "User exception: " + error.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("ERROR", error.toString());
+                loading = false;
             }
         });
     }

@@ -22,7 +22,7 @@ public final class ParseRelativeDate {
                     System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
             relativeDate = relativeDate.replace("mins", "m").replace("min", "m")
                     .replace("hours", "h").replace("hour", "h")
-                    .replace("seconds", "s").replace("second", "s")
+                    .replace("secs", "s").replace("sec", "s")
                     .replace("days", "d").replace("day", "d")
                     .replace(" ago", "").replace(" ", "");
         } catch (ParseException e) {

@@ -65,6 +65,7 @@ import org.json.JSONObject;
       "screen_name": "oauth_dancer"
     }
  */
+
 public class User implements Parcelable {
     public String getName() {
         return name;
@@ -92,8 +93,7 @@ public class User implements Parcelable {
         user.name = jsonObject.getString("name");
         user.screenName = jsonObject.getString("screen_name");
         user.uid = jsonObject.getLong("id");
-        user.profileImageUrl = jsonObject.getString("profile_image_url_https");
-        Log.d("XXX", "Added user " + user.name);
+        user.profileImageUrl = jsonObject.getString("profile_image_url_https").replace("_normal", "_bigger");
         return user;
     }
 

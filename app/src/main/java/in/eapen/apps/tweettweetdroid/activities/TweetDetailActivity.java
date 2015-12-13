@@ -11,10 +11,10 @@ import com.squareup.picasso.Picasso;
 
 import in.eapen.apps.tweettweetdroid.R;
 import in.eapen.apps.tweettweetdroid.models.Tweet;
-import in.eapen.apps.tweettweetdroid.models.User;
 
 public class TweetDetailActivity extends AppCompatActivity {
 
+    public static final int TWEET_DETAIL_REQUEST = 200;
     private ImageView ivProfilePicture;
     private TextView tvName;
     private TextView tvScreenName;
@@ -31,7 +31,7 @@ public class TweetDetailActivity extends AppCompatActivity {
         actionBar.setLogo(R.drawable.ic_twitter_circle);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setTitle("Tweet Deets");
+        actionBar.setTitle(R.string.tweet_detail_title);
 
         // Fetch views
         ivProfilePicture = (ImageView) findViewById(R.id.ivTDProfilePicture);

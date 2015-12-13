@@ -89,12 +89,8 @@ public class ComposeTweetActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    if (errorResponse.getJSONArray("errors").getJSONObject(0).getInt("code") == 88) {
-                        Toast.makeText(getApplicationContext(), "Exceeded limit. Please wait 15 minutes.", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (statusCode == 429) {
+                    Toast.makeText(getApplicationContext(), "Exceeded limit. Please wait 15 minutes.", Toast.LENGTH_SHORT).show();
                 }
                 Log.d("XXX", "an error occurred");
                 Toast.makeText(getApplicationContext(), "error retrieving user", Toast.LENGTH_SHORT).show();
@@ -121,9 +117,9 @@ public class ComposeTweetActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 currentLength = etText.getText().toString().length();
-                counterItem.setTitle(String.valueOf(MAX_CHARACTERS - currentLength) + " rem.");
+                counterItem.setTitle(String.valueOf(MAX_CHARACTERS - currentLength));
                 if (currentLength > MAX_CHARACTERS) {
-                    etText.setText(etText.getText().toString().subSequence(0, MAX_CHARACTERS) + " rem.");
+                    etText.setText(etText.getText().toString().subSequence(0, MAX_CHARACTERS));
                     etText.setSelection(MAX_CHARACTERS);
                 }
             }
@@ -143,14 +139,6 @@ public class ComposeTweetActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Toast.makeText(getApplicationContext(), etText.getText().toString(), Toast.LENGTH_SHORT).show();
-                if (etText.getText().length() > MAX_CHARACTERS) {
-                    int length = etText.getText().length();
-                    etText.setText(etText.getText().subSequence(0, MAX_CHARACTERS));
-                    Toast.makeText(getBaseContext(), "Tweet has been trimmed to "
-                            + Integer.toString(MAX_CHARACTERS)
-                            + " chars. Reduce limit and try again.", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
                 try {
                     client.postTweet(etText.getText().toString(), new JsonHttpResponseHandler() {
                         @Override
@@ -192,9 +180,5 @@ public class ComposeTweetActivity extends AppCompatActivity {
         });
 
         return true;
-    }
-
-    public void updateCharCounter() {
-        counterItem.setTitle(etText.getText().toString().length());
     }
 }

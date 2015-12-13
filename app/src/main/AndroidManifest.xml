@@ -31,7 +31,8 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,16 +59,16 @@
             -->
         </activity>
         <activity android:name=".activities.TweetDetailActivity"
-            android:parentActivityName=".activities.TimelineActivity">
+            android:parentActivityName=".activities.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.TimelineActivity" />
+                android:value=".activities.LoginActivity" />
         </activity>
         <activity android:name=".activities.ComposeTweetActivity"
-            android:parentActivityName=".activities.TimelineActivity">
+            android:parentActivityName=".activities.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.TimelineActivity" />
+                android:value=".activities.LoginActivity" />
         </activity>
     </application>
 
