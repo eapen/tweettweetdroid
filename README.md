@@ -4,7 +4,7 @@
 
 Submitted by: **Eapen**
 
-Time spent: ** ** hours spent in total
+Time spent: **12** hours spent in total
 
 ## User Stories
 
@@ -18,13 +18,13 @@ The following **required** functionality is completed:
 * [ ] User can view more tweets as they scroll with infinite pagination
 * [x] User can compose a new tweet
 * [x] User can click a “Compose” icon in the Action Bar on the top right
-* [ ] User can then enter a new tweet and post this to twitter
-* [ ] User is taken back to home timeline with new tweet visible in timeline
+* [x] User can then enter a new tweet and post this to twitter
+* [x] User is taken back to home timeline with new tweet visible in timeline
 
 
 The following **optional** features are implemented:
 
-* [ ] Advanced: While composing a tweet, user can see a character counter with characters remaining for tweet out of 140
+* [x] Advanced: While composing a tweet, user can see a character counter with characters remaining for tweet out of 140
 * [ ] Advanced: Links in tweets are clickable and will launch the web browser (see autolink)
 * [ ] Advanced: User can refresh tweets timeline by pulling down to refresh (i.e pull-to-refresh)
 * [ ] Advanced: User can open the twitter app offline and see last loaded tweets (using sqlite)

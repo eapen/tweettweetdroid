@@ -6,7 +6,7 @@
 
     <item android:id="@+id/character_count"
         android:orderInCategory="1"
-        android:title="140"
+        android:title=""
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/menu_text_compose"

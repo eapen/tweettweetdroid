@@ -3,6 +3,7 @@
 
     <string name="app_name">TweetTweet Droid</string>
     <string name="login_label">Connect with Twitter</string>
-    <string name="title_activity_timeline">Home Timeline</string>
+    <string name="title_activity_timeline">Home</string>
+    <string name="compose_tweet_button">TWEET</string>
 
 </resources>

@@ -1,7 +1,10 @@
 package in.eapen.apps.tweettweetdroid.activities;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +33,8 @@ import in.eapen.apps.tweettweetdroid.models.Tweet;
 import in.eapen.apps.tweettweetdroid.models.User;
 import in.eapen.apps.tweettweetdroid.net.TwitterClient;
 
+import in.eapen.apps.tweettweetdroid.activities.ComposeTweetActivity;
+
 
 public class TimelineActivity extends AppCompatActivity {
 
@@ -56,7 +61,12 @@ public class TimelineActivity extends AppCompatActivity {
         aTweets = new TweetsArrayAdapter(this, tweets);
 
         lvTweets.setAdapter(aTweets);
-        populateTimeline();
+
+        if (isNetworkAvailable()) {
+            populateTimeline();
+        } else {
+            Toast.makeText(this, "Network unavailable", Toast.LENGTH_LONG);
+        }
 
 
         lvTweets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -80,11 +90,24 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent i = new Intent(TimelineActivity.this, ComposeTweetActivity.class);
-                startActivityForResult(i, 100);
+                startActivityForResult(i, ComposeTweetActivity.COMPOSE_TWEET_REQUEST);
                 return true;
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == ComposeTweetActivity.COMPOSE_TWEET_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                Tweet tweet = data.getParcelableExtra("tweet");
+                aTweets.insert(tweet, 0);
+                aTweets.notifyDataSetChanged();
+            }
+        }
     }
 
     private void populateTimeline() {
@@ -95,6 +118,7 @@ public class TimelineActivity extends AppCompatActivity {
                 aTweets.addAll(Tweet.fromJSONArray(json));
             }
 
+            // handle JSON failure
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
@@ -104,15 +128,28 @@ public class TimelineActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.d("XXX", errorResponse.toString());
+                Log.e("ERROR", errorResponse.toString());
+            }
+
+            // handle non-JSON error responses
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
+                Log.e("ERROR", errorResponse.toString());
             }
 
             @Override
             public void onUserException(Throwable error) {
-                Toast.makeText(getApplicationContext(), "User exception" + error.toString(), Toast.LENGTH_SHORT).show();
-                //super.onUserException(error);
+                Toast.makeText(getApplicationContext(), "User exception: " + error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("ERROR", error.toString());
             }
         });
+    }
+
+    public Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
 }

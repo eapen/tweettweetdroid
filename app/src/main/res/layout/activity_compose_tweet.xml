@@ -49,8 +49,10 @@
             android:id="@+id/etCTTweetContent"
             android:layout_below="@+id/ivCTProfilePicture"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_alignParentStart="false"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:lines="4"
+            android:minLines="3" />
     </RelativeLayout>
 </RelativeLayout>
