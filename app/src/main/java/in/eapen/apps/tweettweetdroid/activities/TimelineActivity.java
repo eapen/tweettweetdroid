@@ -75,8 +75,9 @@ public class TimelineActivity extends AppCompatActivity {
             public boolean onLoadMore(int page, int totalItemsCount) {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to your AdapterView
+                itemsCount = totalItemsCount;
+                nextPage = page+1;
                 populateTimeline();
-                // or customLoadMoreDataFromApi(totalItemsCount);
                 return loading;
             }
         });
@@ -129,8 +130,6 @@ public class TimelineActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 Log.d("XXX", json.toString());
                 aTweets.addAll(Tweet.fromJSONArray(json));
-                nextPage++;
-                itemsCount += json.length();
                 loading = false;
             }
 
