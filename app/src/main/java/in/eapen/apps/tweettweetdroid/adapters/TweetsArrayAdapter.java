@@ -2,6 +2,7 @@ package in.eapen.apps.tweettweetdroid.adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         viewHolder.tvScreenName.setText("@" + tweet.getUser().getScreenName());
         String relativeTime = ParseRelativeDate.getRelativeTimeAgo(tweet.getTimestampString());
         viewHolder.tvRelativeDate.setText(relativeTime);
-        viewHolder.tvTweet.setText(tweet.getText());
+        viewHolder.tvTweet.setText(Html.fromHtml(tweet.getText()));
         Picasso.with(getContext()).load(Uri.parse(tweet.getUser().getProfileImageUrl())).placeholder(R.drawable.ic_profile_placeholder).into(viewHolder.ivProfileImage);
         // Return the completed view to render on screen
         return convertView;
