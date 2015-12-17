@@ -6,5 +6,7 @@
     <string name="title_activity_timeline">Home</string>
     <string name="compose_tweet_button">TWEET</string>
     <string name="tweet_detail_title">Tweet Deets</string>
+    <string name="char_limit_string">140</string>
+    <integer name="char_limit">140</integer>
 
 </resources>

@@ -1,6 +1,7 @@
 package in.eapen.apps.tweettweetdroid.activities;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +21,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,7 +35,7 @@ import in.eapen.apps.tweettweetdroid.utils.TwitterApplication;
 public class ComposeTweetActivity extends AppCompatActivity {
 
     public static final int COMPOSE_TWEET_REQUEST = 100;
-    private static final int MAX_CHARACTERS = 140;
+    private int MAX_CHARACTERS;
     private ImageView ivProfilePicture;
     private TextView tvName;
     private TextView tvScreenName;
@@ -54,6 +53,8 @@ public class ComposeTweetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Resources res = getResources();
+        MAX_CHARACTERS = res.getInteger(R.integer.char_limit);
         setContentView(R.layout.activity_compose_tweet);
 
         ActionBar actionBar = getSupportActionBar();
