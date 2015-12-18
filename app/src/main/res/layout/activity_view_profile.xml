@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="in.eapen.apps.tweettweetdroid.activities.ViewProfileActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/ivTDProfilePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:maxHeight="70dp"
+            android:maxWidth="70dp"
+            android:minHeight="70dp"
+            android:minWidth="70dp"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/tvTDName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/ivTDProfilePicture"
+            android:layout_toRightOf="@+id/ivTDProfilePicture"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/tvTDScreenName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTDName"
+            android:layout_toEndOf="@+id/ivTDProfilePicture"
+            android:layout_toRightOf="@+id/ivTDProfilePicture"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/tvTDTweetContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tvTDScreenName"
+            android:maxLines="5"
+            android:minLines="1"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lvTweets"
+            android:layout_below="@+id/tvTDTweetContent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

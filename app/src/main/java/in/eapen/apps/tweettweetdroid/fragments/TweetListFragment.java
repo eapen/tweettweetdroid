@@ -4,11 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +26,10 @@ import in.eapen.apps.tweettweetdroid.activities.ComposeTweetActivity;
 import in.eapen.apps.tweettweetdroid.activities.TweetDetailActivity;
 import in.eapen.apps.tweettweetdroid.adapters.TweetsArrayAdapter;
 import in.eapen.apps.tweettweetdroid.models.Tweet;
+import in.eapen.apps.tweettweetdroid.net.TwitterClient;
 import in.eapen.apps.tweettweetdroid.utils.EndlessScrollListener;
+import in.eapen.apps.tweettweetdroid.utils.NetworkCheck;
+import in.eapen.apps.tweettweetdroid.utils.TwitterApplication;
 
 /**
  * Created by geapen on 12/17/15.
@@ -33,6 +44,8 @@ public class TweetListFragment extends Fragment {
     int itemsCount = 0;
     int nextPage = 1;
     boolean loading = false;
+
+    private TwitterClient client;
 
     // inflate view
     @Nullable
@@ -49,7 +62,7 @@ public class TweetListFragment extends Fragment {
                 // Add whatever code is needed to append new items to your AdapterView
                 itemsCount = totalItemsCount;
                 nextPage = page+1;
-                //populateTimeline();
+                //populateTimeline("Home");
                 return loading;
             }
         });
@@ -72,6 +85,12 @@ public class TweetListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         tweets = new ArrayList<Tweet>();
         aTweets = new TweetsArrayAdapter(getActivity(), tweets);
+
+        client = TwitterApplication.getRestClient();
+        NetworkCheck nc = new NetworkCheck(getActivity());
+        if (!nc.isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "Network unavailable", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void addAll(List<Tweet> tweets) {
@@ -91,4 +110,40 @@ public class TweetListFragment extends Fragment {
         }
     }
 
+
+    public void populateTimeline(String timeline) {
+        loading = true;
+        client.getTimeline(timeline, COUNT, nextPage, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                Log.d("XXX", json.toString());
+                addAll(Tweet.fromJSONArray(json));
+                loading = false;
+            }
+
+            // handle JSON failure
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                if (statusCode == 429) {
+                    Toast.makeText(getActivity(), "Exceeded limit. Please wait 15 minutes.", Toast.LENGTH_SHORT).show();
+                }
+                Log.e("ERROR", errorResponse.toString());
+                loading = false;
+            }
+
+            // handle non-JSON error responses
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
+                Log.e("ERROR", errorResponse.toString());
+                loading = false;
+            }
+
+            @Override
+            public void onUserException(Throwable error) {
+                Toast.makeText(getActivity(), "User exception: " + error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("ERROR", error.toString());
+                loading = false;
+            }
+        });
+    }
 }

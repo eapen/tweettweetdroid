@@ -6,12 +6,13 @@ import android.support.annotation.Nullable;
 /**
  * Created by geapen on 12/17/15.
  */
-public class HomeTimelineFragment extends TweetListFragment {
+public class MentionsTimelineFragment extends TweetListFragment {
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.populateTimeline("Home");
+        populateTimeline("Mentions");
     }
 
 }

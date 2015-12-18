@@ -32,6 +32,14 @@ public class TwitterClient extends OAuthBaseClient {
 		client.post(apiUrl, params, handler);
 	}
 
+	public void getTimeline(String typeTimeline, int count, int page, JsonHttpResponseHandler handler) {
+		if (typeTimeline == "Home") {
+			getHomeTimeline(count, page, handler);
+		} else if (typeTimeline == "Mentions") {
+			getMentionsTimeline(count, page, handler);
+		}
+	}
+
 	public void getHomeTimeline(int count, int page, JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		RequestParams params = new RequestParams();
@@ -44,5 +52,23 @@ public class TwitterClient extends OAuthBaseClient {
 	public void getUserInfo(JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("account/verify_credentials.json");
 		client.get(apiUrl, null, handler);
+	}
+
+	public void getMentionsTimeline(int count, int page, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+		RequestParams params = new RequestParams();
+		params.put("count", count);
+		params.put("page", page);
+		Log.d("XXX", apiUrl + " " + params.toString());
+		client.get(apiUrl, params, handler);
+	}
+
+	public void getUserTimeline(int count, int page, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/user_timeline.json");
+		RequestParams params = new RequestParams();
+		params.put("count", count);
+		params.put("page", page);
+		Log.d("XXX", apiUrl + " " + params.toString());
+		client.get(apiUrl, params, handler);
 	}
 }
