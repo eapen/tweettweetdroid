@@ -14,6 +14,7 @@ public class HomeTimelineFragment extends TweetListFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.populateTimeline(timeline);
+        setTimeline(timeline);
     }
 
 }

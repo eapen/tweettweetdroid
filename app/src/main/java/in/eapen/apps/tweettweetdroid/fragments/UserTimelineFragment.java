@@ -13,6 +13,7 @@ public class UserTimelineFragment extends TweetListFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.populateTimeline(timeline);
+        setTimeline(timeline);
     }
 
     public static UserTimelineFragment newInstance(long userId) {

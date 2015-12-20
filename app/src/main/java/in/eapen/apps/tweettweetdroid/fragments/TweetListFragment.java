@@ -49,6 +49,9 @@ public class TweetListFragment extends Fragment {
 
     private TwitterClient client;
 
+    public void setTimeline(String timeline) {
+        this.timeline = timeline;
+    }
     // inflate view
     @Nullable
     @Override
@@ -66,6 +69,7 @@ public class TweetListFragment extends Fragment {
                 itemsCount = totalItemsCount;
                 nextPage = page + 1;
                 populateTimeline(timeline);
+                Log.d(TAG, "Fetching more " + timeline);
                 return loading;
             }
         });
@@ -95,10 +99,8 @@ public class TweetListFragment extends Fragment {
     public void populateTimeline(String timeline) {
         loading = true;
         long userId = 0;
-        try {
+        if (getArguments() != null && getArguments().containsKey("userId")) {
             userId = getArguments().getLong("userId", 0);
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
         }
         client.getTimeline(timeline, userId, COUNT, nextPage, new JsonHttpResponseHandler() {
             @Override

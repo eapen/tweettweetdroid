@@ -14,6 +14,7 @@ public class MentionsTimelineFragment extends TweetListFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         populateTimeline(timeline);
+        setTimeline(timeline);
     }
 
 }
