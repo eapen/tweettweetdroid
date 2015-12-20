@@ -2,7 +2,6 @@ package in.eapen.apps.tweettweetdroid.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,10 +82,29 @@ public class User implements Parcelable {
         return profileImageUrl;
     }
 
+    public String getBackgroundImageUrl() {
+        return backgroundImageUrl;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public int getFollowingCount() { return followingCount; }
+
+    public int getFollowersCount() { return followersCount; }
+
+    public long getTweetsCount() { return tweetsCount; }
+
     private String name;
     private String screenName;
     private long uid;
     private String profileImageUrl;
+    private String backgroundImageUrl;
+    private String tagline;
+    private int followingCount;
+    private int followersCount;
+    private long tweetsCount;
 
     public static User fromJson(JSONObject jsonObject) throws JSONException {
         User user = new User();
@@ -94,6 +112,11 @@ public class User implements Parcelable {
         user.screenName = jsonObject.getString("screen_name");
         user.uid = jsonObject.getLong("id");
         user.profileImageUrl = jsonObject.getString("profile_image_url_https").replace("_normal", "_bigger");
+        user.backgroundImageUrl= jsonObject.getString("profile_background_image_url_https");
+        user.tagline = jsonObject.getString("description");
+        user.followingCount = jsonObject.getInt("followers_count");
+        user.followersCount = jsonObject.getInt("friends_count");
+        user.tweetsCount = jsonObject.getLong("statuses_count");
         return user;
     }
 
@@ -108,6 +131,11 @@ public class User implements Parcelable {
         dest.writeString(this.screenName);
         dest.writeLong(this.uid);
         dest.writeString(this.profileImageUrl);
+        dest.writeString(this.backgroundImageUrl);
+        dest.writeString(this.tagline);
+        dest.writeInt(this.followingCount);
+        dest.writeInt(this.followersCount);
+        dest.writeLong(this.tweetsCount);
     }
 
     public User() {
@@ -118,6 +146,11 @@ public class User implements Parcelable {
         this.screenName = in.readString();
         this.uid = in.readLong();
         this.profileImageUrl = in.readString();
+        this.backgroundImageUrl = in.readString();
+        this.tagline = in.readString();
+        this.followingCount = in.readInt();
+        this.followersCount = in.readInt();
+        this.tweetsCount = in.readLong();
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {

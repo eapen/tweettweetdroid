@@ -20,11 +20,11 @@ public final class ParseRelativeDate {
             long dateMillis = sf.parse(rawJsonDate).getTime();
             relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
                     System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
-            relativeDate = relativeDate.replace("mins", "m").replace("min", "m")
-                    .replace("hours", "h").replace("hour", "h")
-                    .replace("secs", "s").replace("sec", "s")
-                    .replace("days", "d").replace("day", "d")
-                    .replace(" ago", "").replace(" ", "");
+            relativeDate = relativeDate.replace(" mins", "m").replace(" min", "m")
+                    .replace(" hours", "h").replace(" hour", "h")
+                    .replace(" secs", "s").replace(" sec", "s")
+                    .replace(" days", "d").replace(" day", "d")
+                    .replace(" ago", "");
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -12,6 +12,7 @@
     android:maxHeight="70dp"
     android:maxWidth="70dp"
     android:padding="5dp"
+    android:onClick="viewProfile"
     android:layout_centerVertical="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true" />

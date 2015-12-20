@@ -3,22 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="in.eapen.apps.tweettweetdroid.activities.ViewProfileActivity">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:id="@+id/rlUTHeader"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#FFFFFF">
 
         <ImageView
-            android:id="@+id/ivTDProfilePicture"
+            android:id="@+id/ivUTProfilePicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -32,44 +32,80 @@
             android:padding="5dp" />
 
         <TextView
-            android:id="@+id/tvTDName"
+            android:id="@+id/tvUTName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/ivTDProfilePicture"
-            android:layout_toRightOf="@+id/ivTDProfilePicture"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@+id/ivUTProfilePicture"
+            android:layout_toRightOf="@+id/ivUTProfilePicture"
+            android:textSize="18sp"
+            android:background="#FFFFFF" />
 
         <TextView
-            android:id="@+id/tvTDScreenName"
+            android:id="@+id/tvUTScreenName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTDName"
-            android:layout_toEndOf="@+id/ivTDProfilePicture"
-            android:layout_toRightOf="@+id/ivTDProfilePicture"
-            android:padding="8dp" />
+            android:layout_below="@+id/tvUTName"
+            android:layout_toEndOf="@+id/ivUTProfilePicture"
+            android:layout_toRightOf="@+id/ivUTProfilePicture"
+            android:padding="4dp"
+            android:textSize="14sp"
+            android:background="#FFFFFF" />
 
         <TextView
-            android:id="@+id/tvTDTweetContent"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvUTTagline"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/tvTDScreenName"
+            android:layout_below="@+id/tvUTScreenName"
             android:maxLines="5"
-            android:minLines="1"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:minLines="0"
+            android:textSize="14sp"
+            android:padding="10dp"
+            android:textStyle="italic"
+            android:textAlignment="center"
+            android:background="#FFFFFF" />
 
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lvTweets"
-            android:layout_below="@+id/tvTDTweetContent"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tvUTTagline"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:padding="10dp"
+            android:layout_alignParentStart="true">
+            
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvUTFollowersCount" />
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvUTFriendsCount" />
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvUTTweetsCount" />
+        </LinearLayout>
 
     </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlUTHeader"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/flUTTweets"
+        android:background="#FFFFFF"></FrameLayout>
 
 </RelativeLayout>

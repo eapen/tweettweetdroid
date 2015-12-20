@@ -61,7 +61,7 @@ public class TweetListFragment extends Fragment {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to your AdapterView
                 itemsCount = totalItemsCount;
-                nextPage = page+1;
+                nextPage = page + 1;
                 //populateTimeline("Home");
                 return loading;
             }
@@ -90,6 +90,8 @@ public class TweetListFragment extends Fragment {
         NetworkCheck nc = new NetworkCheck(getActivity());
         if (!nc.isNetworkAvailable()) {
             Toast.makeText(getActivity(), "Network unavailable", Toast.LENGTH_LONG).show();
+            // TODO: abort network calls
+            getActivity().finish();
         }
     }
 
@@ -97,6 +99,8 @@ public class TweetListFragment extends Fragment {
         aTweets.addAll(tweets);
     }
 
+
+    // TODO: this should move to the Activity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
@@ -113,7 +117,13 @@ public class TweetListFragment extends Fragment {
 
     public void populateTimeline(String timeline) {
         loading = true;
-        client.getTimeline(timeline, COUNT, nextPage, new JsonHttpResponseHandler() {
+        long userId = 0;
+        try {
+            userId = getArguments().getLong("userId", 0);
+        } catch (Exception e) {
+            Log.e("XXX", e.toString());
+        }
+        client.getTimeline(timeline, userId, COUNT, nextPage, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 Log.d("XXX", json.toString());

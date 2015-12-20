@@ -9,15 +9,24 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import in.eapen.apps.tweettweetdroid.R;
 import in.eapen.apps.tweettweetdroid.fragments.HomeTimelineFragment;
 import in.eapen.apps.tweettweetdroid.fragments.MentionsTimelineFragment;
+import in.eapen.apps.tweettweetdroid.models.User;
+import in.eapen.apps.tweettweetdroid.net.TwitterClient;
 
 
 public class TimelineActivity extends AppCompatActivity {
@@ -84,9 +93,33 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     public void onProfileView(MenuItem mi) {
-        Intent i = new Intent(this, ViewProfileActivity.class);
-        startActivity(i);
+        TwitterClient client = new TwitterClient(getApplicationContext());
+        client.getUserInfo(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
+                try {
+                    User user = User.fromJson(json);
+                    user.getUid();
+                    Intent i = new Intent(TimelineActivity.this, ViewProfileActivity.class);
+                    i.putExtra("user", user);
+                    startActivity(i);
+                } catch (JSONException e) {
+                    Log.d("XXX", e.toString());
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                if (statusCode == 429) {
+                    Toast.makeText(getApplicationContext(), "Exceeded limit. Please wait 15 minutes.", Toast.LENGTH_SHORT).show();
+                }
+                Log.d("XXX", "an error occurred");
+                Toast.makeText(getApplicationContext(), "error retrieving user", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+        });
     }
 
     public class TweetsPagerAdapter extends FragmentPagerAdapter {
@@ -117,4 +150,6 @@ public class TimelineActivity extends AppCompatActivity {
             return tabTitles[position];
         }
     }
+
+
 }
