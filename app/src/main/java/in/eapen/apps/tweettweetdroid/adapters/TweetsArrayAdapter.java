@@ -1,6 +1,7 @@
 package in.eapen.apps.tweettweetdroid.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import in.eapen.apps.tweettweetdroid.R;
+import in.eapen.apps.tweettweetdroid.activities.ViewProfileActivity;
 import in.eapen.apps.tweettweetdroid.models.Tweet;
 import in.eapen.apps.tweettweetdroid.utils.ParseRelativeDate;
 
@@ -22,6 +24,8 @@ import in.eapen.apps.tweettweetdroid.utils.ParseRelativeDate;
  * Created by geapen on 12/10/15.
  */
 public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
+
+    private final String TAG = this.getClass().getSimpleName();
 
     // View lookup cache
     private static class ViewHolder {
@@ -43,7 +47,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         // Get the data item for this position
         final Tweet tweet = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
-        ViewHolder viewHolder; // view lookup cache stored in tag
+        final ViewHolder viewHolder; // view lookup cache stored in tag
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -66,6 +70,16 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         viewHolder.tvTweet.setText(Html.fromHtml(tweet.getText()));
         Picasso.with(getContext()).load(Uri.parse(tweet.getUser().getProfileImageUrl())).placeholder(R.drawable.ic_profile_placeholder).into(viewHolder.ivProfileImage);
         // Return the completed view to render on screen
+        viewHolder.ivProfileImage.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getContext(), ViewProfileActivity.class);
+                        i.putExtra("user", tweet.getUser());
+                        getContext().startActivity(i);
+                    }
+                }
+        );
         return convertView;
     }
 

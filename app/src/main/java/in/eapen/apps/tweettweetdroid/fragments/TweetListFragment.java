@@ -1,6 +1,5 @@
 package in.eapen.apps.tweettweetdroid.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,7 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.eapen.apps.tweettweetdroid.R;
-import in.eapen.apps.tweettweetdroid.activities.ComposeTweetActivity;
-import in.eapen.apps.tweettweetdroid.activities.TweetDetailActivity;
 import in.eapen.apps.tweettweetdroid.adapters.TweetsArrayAdapter;
 import in.eapen.apps.tweettweetdroid.models.Tweet;
 import in.eapen.apps.tweettweetdroid.net.TwitterClient;
@@ -36,10 +33,15 @@ import in.eapen.apps.tweettweetdroid.utils.TwitterApplication;
  */
 public class TweetListFragment extends Fragment {
 
+    private final String TAG = this.getClass().getSimpleName();
+
+    public String timeline;
+
     static final int COUNT = 25;
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
+    private ImageView ivProfile;
 
     int itemsCount = 0;
     int nextPage = 1;
@@ -52,6 +54,7 @@ public class TweetListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tweets_list, parent, false);
+        ImageView ivProfile = (ImageView) v.findViewById(R.id.ivProfileImage);
         lvTweets = (ListView) v.findViewById(R.id.lvTweets);
         lvTweets.setAdapter(aTweets);
 
@@ -62,18 +65,8 @@ public class TweetListFragment extends Fragment {
                 // Add whatever code is needed to append new items to your AdapterView
                 itemsCount = totalItemsCount;
                 nextPage = page + 1;
-                //populateTimeline("Home");
+                populateTimeline(timeline);
                 return loading;
-            }
-        });
-
-        lvTweets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Tweet t = aTweets.getItem(position);
-                Intent i = new Intent(getActivity(), TweetDetailActivity.class);
-                i.putExtra("tweet", t);
-                startActivityForResult(i, TweetDetailActivity.TWEET_DETAIL_REQUEST);
             }
         });
 
@@ -99,34 +92,18 @@ public class TweetListFragment extends Fragment {
         aTweets.addAll(tweets);
     }
 
-
-    // TODO: this should move to the Activity
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode == ComposeTweetActivity.COMPOSE_TWEET_REQUEST) {
-            // Make sure the request was successful
-            if (resultCode == getActivity().RESULT_OK) {
-                Tweet tweet = data.getParcelableExtra("tweet");
-                aTweets.insert(tweet, 0);
-                aTweets.notifyDataSetChanged();
-            }
-        }
-    }
-
-
     public void populateTimeline(String timeline) {
         loading = true;
         long userId = 0;
         try {
             userId = getArguments().getLong("userId", 0);
         } catch (Exception e) {
-            Log.e("XXX", e.toString());
+            Log.e(TAG, e.toString());
         }
         client.getTimeline(timeline, userId, COUNT, nextPage, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                Log.d("XXX", json.toString());
+                Log.d(TAG, json.toString());
                 addAll(Tweet.fromJSONArray(json));
                 loading = false;
             }

@@ -50,7 +50,8 @@
             android:layout_below="@+id/tvUTName"
             android:layout_toEndOf="@+id/ivUTProfilePicture"
             android:layout_toRightOf="@+id/ivUTProfilePicture"
-            android:padding="4dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:textSize="14sp"
             android:background="#FFFFFF" />
 
@@ -62,7 +63,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/tvUTScreenName"
+            android:layout_below="@+id/ivUTProfilePicture"
             android:maxLines="5"
             android:minLines="0"
             android:textSize="14sp"

@@ -17,6 +17,8 @@ import in.eapen.apps.tweettweetdroid.models.User;
 
 public class ViewProfileActivity extends AppCompatActivity {
 
+    private final String TAG = this.getClass().getSimpleName();
+
     private ImageView ivProfilePicture;
     private TextView tvName;
     private TextView tvScreenName;
@@ -24,20 +26,19 @@ public class ViewProfileActivity extends AppCompatActivity {
     private TextView tvFollowersCount;
     private TextView tvFriendsCount;
     private TextView tvTweetsCount;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
 
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.ic_twitter_circle);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
         User user = getIntent().getParcelableExtra("user");
-
-
         if (savedInstanceState == null) {
             UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(user.getUid());
 
@@ -46,8 +47,15 @@ public class ViewProfileActivity extends AppCompatActivity {
             ft.commit();
         }
 
+        populateProfileHeader(user);
+
+    }
+
+    public void populateProfileHeader(User user) {
+
+        actionBar.setTitle("@" + user.getScreenName());
+
         final RelativeLayout rlHeader = (RelativeLayout) findViewById(R.id.rlUTHeader);
-        actionBar.setTitle(user.getScreenName());
         ivProfilePicture = (ImageView) findViewById(R.id.ivUTProfilePicture);
         tvName = (TextView) findViewById(R.id.tvUTName);
         tvScreenName = (TextView) findViewById(R.id.tvUTScreenName);
@@ -84,7 +92,5 @@ public class ViewProfileActivity extends AppCompatActivity {
         }
         */
         Picasso.with(getApplicationContext()).load(Uri.parse(user.getProfileImageUrl())).placeholder(R.drawable.ic_profile_placeholder).into(ivProfilePicture);
-
-
     }
 }

@@ -31,6 +31,8 @@ import in.eapen.apps.tweettweetdroid.net.TwitterClient;
 
 public class TimelineActivity extends AppCompatActivity {
 
+    private final String TAG = this.getClass().getSimpleName();
+
     private static final int COUNT = 25;
     private boolean loading;
     private ActionBar actionBar;
@@ -57,6 +59,7 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 actionBar.setTitle(tweetsPagerAdapter.getPageTitle(position));
+
             }
 
             // This method will be invoked when the current page is scrolled
@@ -92,6 +95,13 @@ public class TimelineActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    public void onLogout(MenuItem mi) {
+        TwitterClient client = new TwitterClient(getApplicationContext());
+        client.clearAccessToken();
+        Toast.makeText(TimelineActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
     public void onProfileView(MenuItem mi) {
         TwitterClient client = new TwitterClient(getApplicationContext());
         client.getUserInfo(new JsonHttpResponseHandler() {
@@ -104,7 +114,7 @@ public class TimelineActivity extends AppCompatActivity {
                     i.putExtra("user", user);
                     startActivity(i);
                 } catch (JSONException e) {
-                    Log.d("XXX", e.toString());
+                    Log.d(TAG, e.toString());
                     e.printStackTrace();
                 }
             }
@@ -114,7 +124,7 @@ public class TimelineActivity extends AppCompatActivity {
                 if (statusCode == 429) {
                     Toast.makeText(getApplicationContext(), "Exceeded limit. Please wait 15 minutes.", Toast.LENGTH_SHORT).show();
                 }
-                Log.d("XXX", "an error occurred");
+                Log.d(TAG, "an error occurred");
                 Toast.makeText(getApplicationContext(), "error retrieving user", Toast.LENGTH_SHORT).show();
                 finish();
                 return;

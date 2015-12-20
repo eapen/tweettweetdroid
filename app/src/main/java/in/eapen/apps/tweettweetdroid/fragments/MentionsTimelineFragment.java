@@ -8,11 +8,12 @@ import android.support.annotation.Nullable;
  */
 public class MentionsTimelineFragment extends TweetListFragment {
 
+    public String timeline = "Mentions";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        populateTimeline("Mentions");
+        populateTimeline(timeline);
     }
 
 }

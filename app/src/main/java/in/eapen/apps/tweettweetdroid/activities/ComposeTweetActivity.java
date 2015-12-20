@@ -34,6 +34,8 @@ import in.eapen.apps.tweettweetdroid.utils.TwitterApplication;
 
 public class ComposeTweetActivity extends AppCompatActivity {
 
+    private final String TAG = this.getClass().getSimpleName();
+
     public static final int COMPOSE_TWEET_REQUEST = 100;
     private int MAX_CHARACTERS;
     private ImageView ivProfilePicture;
@@ -52,6 +54,7 @@ public class ComposeTweetActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         Resources res = getResources();
         MAX_CHARACTERS = res.getInteger(R.integer.char_limit);
@@ -83,7 +86,7 @@ public class ComposeTweetActivity extends AppCompatActivity {
                     tvScreenName.setText("@" + user.getScreenName());
                     Picasso.with(getApplicationContext()).load(Uri.parse(user.getProfileImageUrl())).placeholder(R.drawable.ic_profile_placeholder).into(ivProfilePicture);
                 } catch (JSONException e) {
-                    Log.d("XXX", e.toString());
+                    Log.d(TAG, e.toString());
                     e.printStackTrace();
                 }
             }
@@ -93,7 +96,7 @@ public class ComposeTweetActivity extends AppCompatActivity {
                 if (statusCode == 429) {
                     Toast.makeText(getApplicationContext(), "Exceeded limit. Please wait 15 minutes.", Toast.LENGTH_SHORT).show();
                 }
-                Log.d("XXX", "an error occurred");
+                Log.d(TAG, "an error occurred");
                 Toast.makeText(getApplicationContext(), "error retrieving user", Toast.LENGTH_SHORT).show();
                 finish();
                 return;
@@ -144,7 +147,7 @@ public class ComposeTweetActivity extends AppCompatActivity {
                     client.postTweet(etText.getText().toString(), new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
-                            Log.d("XXX", "Created tweet");
+                            Log.d(TAG, "Created tweet");
                             Intent data = new Intent();
                             Tweet tweet = new Tweet();
                             try {
@@ -160,7 +163,7 @@ public class ComposeTweetActivity extends AppCompatActivity {
                         // handle JSON error responses
                         @Override
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                            Log.d("XXX", "Error: " + errorResponse.toString());
+                            Log.d(TAG, "Error: " + errorResponse.toString());
                             Toast.makeText(getBaseContext(), errorResponse.toString(), Toast.LENGTH_SHORT).show();
                         }
 

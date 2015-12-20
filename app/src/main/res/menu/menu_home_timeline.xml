@@ -17,4 +17,10 @@
         app:showAsAction="always"
         android:onClick="onProfileView" />
 
+    <item android:id="@+id/action_logout"
+        android:orderInCategory="3"
+        android:title="Logout"
+        app:showAsAction="never"
+        android:onClick="onLogout" />
+
 </menu>

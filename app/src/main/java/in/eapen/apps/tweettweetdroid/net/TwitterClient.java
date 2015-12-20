@@ -15,6 +15,8 @@ import java.net.URLEncoder;
 
 
 public class TwitterClient extends OAuthBaseClient {
+	private final String TAG = this.getClass().getSimpleName();
+
 	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class;
 	public static final String REST_URL = "https://api.twitter.com/1.1";
 	public static final String REST_CONSUMER_KEY = "";       // Change this
@@ -47,12 +49,13 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("count", count);
 		params.put("page", page);
-		Log.d("XXX", apiUrl + " " + params.toString());
+		Log.d(TAG, apiUrl + " " + params.toString());
 		client.get(apiUrl, params, handler);
 	}
 
 	public void getUserInfo(JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("account/verify_credentials.json");
+		Log.d(TAG, apiUrl);
 		client.get(apiUrl, null, handler);
 	}
 
@@ -61,7 +64,7 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("count", count);
 		params.put("page", page);
-		Log.d("XXX", apiUrl + " " + params.toString());
+		Log.d(TAG, apiUrl + " " + params.toString());
 		client.get(apiUrl, params, handler);
 	}
 
@@ -71,7 +74,7 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("user_id", userId);
 		params.put("count", count);
 		params.put("page", page);
-		Log.d("XXX", apiUrl + " " + params.toString());
+		Log.d(TAG, apiUrl + " " + params.toString());
 		client.get(apiUrl, params, handler);
 	}
 }
