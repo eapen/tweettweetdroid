@@ -4,41 +4,26 @@
 
 Submitted by: **Eapen**
 
-Time spent in Week 1: **16** hours spent in total
 Time spent in Week 2: **15** hours
 
-## Week 1 User Stories
+Time spent in Week 1: **16** hours spent in total
 
-The following **required** functionality is completed:
+## Video Walkthrough 
 
-* [x] User can sign in to Twitter using OAuth login
-* [x] User can view the tweets from their home timeline
-* [x] Should display the username, name, and body for each tweet
-* [x] Should be displayed the relative timestamp for each tweet "8m", "7h"
-* [x] User can view more tweets as they scroll with infinite pagination
-* [x] User can compose a new tweet
-* [x] User can click a “Compose” icon in the Action Bar on the top right
-* [x] User can then enter a new tweet and post this to twitter
-* [x] User is taken back to home timeline with new tweet visible in timeline
+Here's a walkthrough of implemented user stories:
 
 
-The following **optional** features are implemented:
+Week 2:
 
-* [x] Advanced: While composing a tweet, user can see a character counter with characters remaining for tweet out of 140
-* [ ] Advanced: Links in tweets are clickable and will launch the web browser (see autolink)
-* [ ] Advanced: User can refresh tweets timeline by pulling down to refresh (i.e pull-to-refresh)
-* [ ] Advanced: User can open the twitter app offline and see last loaded tweets (using sqlite)
-* [ ] Advanced: User can tap a tweet to display a "detailed" view of that tweet
-* [ ] Advanced: User can select "reply" from detail view to respond to a tweet
-* [ ] Advanced: Improve the user interface and theme the app to feel "twitter branded"
-* [ ] Bonus: User can see embedded image media within the tweet detail view
-* [ ] Bonus: Compose activity is replaced with a modal overlay
+<img src='https://github.com/eapen/tweettweetdroid/blob/master/tweettweetdroid-screencap-week-2.gif' title='Video Walkthrough Week 2' width='' alt='Video Walkthrough Week 2' />
 
-The following **additional** features are implemented:
+Week 1:
 
-* [x] Utilizing ViewHolder pattern for performance optimization
-* [x] Displaying HTML characters properly in the TextView
-* [x] Added Tweet Detail view
+<img src='https://github.com/eapen/tweettweetdroid/blob/master/tweettweetdroid-screencap.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+
 
 ## Week 2 User Stories
 
@@ -76,17 +61,39 @@ The following **additional** features are implemented:
 * [x] Autolinking content in Tweet's but lost ability to go to detailed tweet view
 * [x] Added "Logout" menu option
 
-## Video Walkthrough 
 
-Here's a walkthrough of implemented user stories:
+## Week 1 User Stories
 
-Week 1:
-<img src='https://github.com/eapen/tweettweetdroid/blob/master/tweettweetdroid-screencap.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+The following **required** functionality is completed:
 
-Week 2:
-<img src='https://github.com/eapen/tweettweetdroid/blob/master/tweettweetdroid-screencap-week-2.gif' title='Video Walkthrough Week 2' width='' alt='Video Walkthrough Week 2' />
+* [x] User can sign in to Twitter using OAuth login
+* [x] User can view the tweets from their home timeline
+* [x] Should display the username, name, and body for each tweet
+* [x] Should be displayed the relative timestamp for each tweet "8m", "7h"
+* [x] User can view more tweets as they scroll with infinite pagination
+* [x] User can compose a new tweet
+* [x] User can click a “Compose” icon in the Action Bar on the top right
+* [x] User can then enter a new tweet and post this to twitter
+* [x] User is taken back to home timeline with new tweet visible in timeline
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+The following **optional** features are implemented:
+
+* [x] Advanced: While composing a tweet, user can see a character counter with characters remaining for tweet out of 140
+* [ ] Advanced: Links in tweets are clickable and will launch the web browser (see autolink)
+* [ ] Advanced: User can refresh tweets timeline by pulling down to refresh (i.e pull-to-refresh)
+* [ ] Advanced: User can open the twitter app offline and see last loaded tweets (using sqlite)
+* [ ] Advanced: User can tap a tweet to display a "detailed" view of that tweet
+* [ ] Advanced: User can select "reply" from detail view to respond to a tweet
+* [ ] Advanced: Improve the user interface and theme the app to feel "twitter branded"
+* [ ] Bonus: User can see embedded image media within the tweet detail view
+* [ ] Bonus: Compose activity is replaced with a modal overlay
+
+The following **additional** features are implemented:
+
+* [x] Utilizing ViewHolder pattern for performance optimization
+* [x] Displaying HTML characters properly in the TextView
+* [x] Added Tweet Detail view
 
 ## Notes
 
